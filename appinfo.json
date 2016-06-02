@@ -1,0 +1,19 @@
+{
+  "uuid": "824785ef-3f0f-4682-869c-e2832843f425",
+  "shortName": "watchface",
+  "longName": "watchface",
+  "companyName": "minkcv.com",
+  "versionLabel": "1.0",
+  "sdkVersion": "3",
+  "targetPlatforms": ["aplite", "basalt", "chalk"],
+  "enableMultiJS": true,
+  "watchapp": {
+    "watchface": true
+  },
+  "appKeys": {
+    "dummy": 0
+  },
+  "resources": {
+    "media": []
+  }
+}
