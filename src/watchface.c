@@ -14,8 +14,9 @@ static void main_window_load(Window *window) {
     // Create GBitmap
     s_background_bitmap = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_BACKGROUND);
 
-    // Create BitmapLayer
-    s_background_layer = bitmap_layer_create(bounds);
+    // Create BitmapLayer at new location
+    GRect image_bounds = {{(144 / 2) - (120 / 2), 0}, {120, 120}};
+    s_background_layer = bitmap_layer_create(image_bounds);
 
     // Set the bitmap onto the layer and add to the window
     bitmap_layer_set_bitmap(s_background_layer, s_background_bitmap);
@@ -23,10 +24,10 @@ static void main_window_load(Window *window) {
 
     // Create the text layer with bounds
     s_time_layer = text_layer_create(
-            GRect(0, PBL_IF_ROUND_ELSE(58, 52), bounds.size.w, 50));
+            GRect(0, PBL_IF_ROUND_ELSE(58, 120), bounds.size.w, 50));
 
     // Load font
-    s_time_font = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_PERFECT_DOS_48));
+    s_time_font = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_DEJAVU_SANS_MONO_32));
 
     // Improve layout
     text_layer_set_background_color(s_time_layer, GColorClear);

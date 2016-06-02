@@ -17,14 +17,14 @@
     "media": [
         {
             "type": "font",
-            "name": "FONT_PERFECT_DOS_48",
-            "file": "fonts/perfect-dos-vga.ttf",
+            "name": "FONT_DEJAVU_SANS_MONO_32",
+            "file": "fonts/DejaVuSansMono.ttf",
             "compatibility": "2.7"
         },
         {
             "type": "bitmap",
             "name": "IMAGE_BACKGROUND",
-            "file": "images/eye.png"
+            "file": "images/eye_medium.png"
         }
     ]
   }
