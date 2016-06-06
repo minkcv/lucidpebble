@@ -59,12 +59,29 @@ static void update_time() {
     struct tm *tick_time = localtime(&temp);
 
     // Write the current hours and minutes into a buffer
-    static char s_buffer[8];
-    strftime(s_buffer, sizeof(s_buffer), clock_is_24h_style() ? 
-            "%H:%M" : "%I:%M", tick_time);
+    // and display this time on the TextLayer
+    // format of buffers is HH:MM:SS
+    // however seconds are not used in order to conserve battery life
+    // see MINUTE_UNIT in init()
+    static char s_buffer_am_pm[8];
+    static char s_buffer_24h[8];
+    strftime(s_buffer_24h, sizeof(s_buffer_24h), "%H:%M", tick_time);
+    strftime(s_buffer_am_pm, sizeof(s_buffer_am_pm), "%I:%M", tick_time);
+    if(clock_is_24h_style()) {
+        text_layer_set_text(s_time_layer, s_buffer_24h);
+    }
+    else {
+        text_layer_set_text(s_time_layer, s_buffer_am_pm);
+    }
 
-    // Display this time on the TextLayer
-    text_layer_set_text(s_time_layer, s_buffer);
+    // Vibrate every 30 minutes between 9am and 10pm
+    // Careful here, char to int conversions with - '0'
+    if ( ( s_buffer_24h[0] == '0' && s_buffer_24h[1] - '0' >= 9 ) 
+            || s_buffer_24h[0] == '1' || ( s_buffer_24h[0] == '2' && s_buffer_24h[1] == '0' ) ) {
+        if ( ( s_buffer_24h[3] == '0' || s_buffer_24h[3] == '3' ) && s_buffer_24h[4] == '0' ) {
+            vibes_short_pulse();
+        }
+    }
 }
 
 static void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
